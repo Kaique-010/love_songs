@@ -156,33 +156,55 @@
             .timeline-item {
                 flex-direction: column;
                 align-items: center;
+                margin-bottom: 30px;
             }
-
+        
             .image-container, .text-container, .chronology-container {
                 width: 100%;
                 text-align: center;
             }
-
+        
             .chronology-container {
                 margin: 20px 0;
+                font-size: 1.2rem;
+            }
+        
+            .image-container img {
+                width: 90%;
+                max-width: 500px; /* Reduz a largura das imagens para dispositivos móveis */
+            }
+        
+            .text-container {
+                font-size: 1rem; /* Ajusta o tamanho do texto */
+                line-height: 1.5;
+            }
+        
+            h1 {
+                font-size: 2.5rem; /* Reduz o tamanho do título para telas pequenas */
             }
         }
-
+        
         @media (max-width: 480px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2rem; /* Ajuste ainda maior para o título em dispositivos muito pequenos */
             }
-
+        
             .text-container {
                 font-size: 1rem;
+                line-height: 1.4;
             }
-
+        
             .chronology-container {
                 font-size: 1.2rem;
             }
-
+        
             .image-container img {
                 max-width: 90%;
+            }
+        
+            .container-audio audio {
+                width: 100%;
+                max-width: 400px; /* Ajuste o tamanho do áudio para caber melhor em dispositivos móveis */
             }
         }
     </style>

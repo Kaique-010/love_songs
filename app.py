@@ -38,7 +38,7 @@ def home():
 @app.route("/qrcode")
 def generate_qr():
     # URL do site
-    site_url = "http://127.0.0.1:5000/"
+    site_url = "https://leokaique10.pythonanywhere.com/"
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
