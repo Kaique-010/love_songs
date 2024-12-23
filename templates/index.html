@@ -60,16 +60,7 @@
             padding: 20px 0;
         }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 4px;
-            background: #e63946;
-            border-radius: 1px;
-        }
+       
 
         .timeline-item {
             display: flex;
@@ -133,11 +124,18 @@
             font-size: 1rem;
             color: #555;
         }
+        .Container-contador{
+            text-align: center;
+            align-items: center;
+            margin-top: 2%;
+            color: #e63946;
+            font-weight: bold;
+        }
         @media (max-width: 768px) {
             .timeline-item {
                 flex-direction: column;
                 align-items: center;
-                margin-bottom: 20px; /* Espaçamento entre os itens */
+                margin-bottom: 20px; 
             }
         
             .image-container, .text-container, .chronology-container {
@@ -145,10 +143,7 @@
                 text-align: center;
             }
         
-            .chronology-container {
-                margin: 15px 0;
-                font-size: 1rem; /* Ajusta o tamanho da fonte da cronologia */
-            }
+            
         
             .image-container img {
                 width: 100%;
@@ -166,11 +161,7 @@
                 font-size: 2rem; /* Reduz tamanho do título */
             }
         
-            .timeline-line {
-                width: 1px; /* Linha da timeline mais grossa */
-                background-color: red; /* Mantém a cor vermelha */
-            }
-        }
+        
         
         @media (max-width: 480px) {
             h1 {
@@ -187,12 +178,12 @@
             }
         
             .image-container img {
-                width: 90%;
-                margin-bottom: 15px;
+                width: 80%;
+                margin-bottom: 20px;
             }
         
             .timeline-line {
-                width: 4px; /* Linha ainda mais visível em dispositivos pequenos */
+                width: 0.1px; /* Linha ainda mais visível em dispositivos pequenos */
             }
         
             .container-audio audio {
@@ -227,10 +218,7 @@
                 </a>
             </div>
 
-            <!-- Cronologia no centro -->
-            <div class="chronology-container">
-                <p>{{ item.chronology }}</p>
-            </div>
+           
 
             <!-- Texto ao lado da imagem -->
             <div class="text-container">
@@ -239,7 +227,10 @@
         </div>
         {% endfor %}
     </div>
-    
+    <div class="Container-contador">
+        <p>Juntos à <span id="daysCounter"></span> </p>
+        <p>E Contando ...</p>
+    </div>
     <footer>
         <p>Te amo. Feliz Natal. ❤️</p>
     </footer>
@@ -247,11 +238,45 @@
     <!-- Script para garantir que o áudio toque automaticamente -->
     <script>
         window.onload = function() {
-            var audioElement = document.getElementById('romanticAudio');
-            audioElement.play().catch(function(error) {
-                console.log("Erro ao tentar reproduzir o áudio: " + error);
-            });
-        };
+    var audioElement = document.getElementById('romanticAudio');
+    
+    // Tentativa de tocar o áudio
+    audioElement.play().then(function() {
+        console.log("Áudio reproduzido automaticamente.");
+    }).catch(function(error) {
+        console.log("Reprodução automática bloqueada. Erro:", error);
+        
+        // Mostra uma mensagem ou botão para o usuário iniciar a reprodução
+        var userPrompt = document.createElement('div');
+        userPrompt.innerHTML = `
+            <p style="text-align: center; color: #e63946; font-size: 1.2rem; margin-top: 20px;">
+                Clique no botão para ativar a música.
+            </p>
+            <button onclick="document.getElementById('romanticAudio').play()" 
+                style="display: block; margin: 0 auto; padding: 10px 20px; background-color: #d4fcd1; color: black; border: none; border-radius: 5px; cursor: pointer;">
+                Tocar música ❤️
+            </button>
+        `;
+        document.querySelector('.container-audio').appendChild(userPrompt);
+    });
+};
+
+        const startDate = new Date("2023-05-22");
+        const counterElement = document.getElementById("daysCounter");
+
+        function updateCounter() {
+            const today = new Date();
+            const differenceInTime = today - startDate;
+            const days = Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((differenceInTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((differenceInTime % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((differenceInTime % (1000 * 60)) / 1000);
+
+            counterElement.textContent = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
     </script>
 
     <!-- Script do Bootstrap -->
